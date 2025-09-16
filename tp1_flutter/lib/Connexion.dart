@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tp1_flutter/Inscription.dart';
 
 import 'HomeScreen.dart';
 
@@ -33,12 +34,21 @@ class Connexion  extends StatelessWidget {
               onPressed: () {
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => const HomeScreen()),
+                  MaterialPageRoute(builder: (context) => const Inscription()),
                 );
               },
               child: const Text("Inscription"),
             ),
-
+            const SizedBox(height: 30),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const HomeScreen()),
+                );
+              },
+              child: const Text("Connexion"),
+            ),
           ],
 
         ),
