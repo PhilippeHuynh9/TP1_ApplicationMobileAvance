@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tp1_flutter/Inscription.dart';
 
-import 'HomeScreen.dart';
+import 'Accueil.dart';
 
 class Connexion  extends StatelessWidget {
   const Connexion({super.key});
@@ -10,7 +10,7 @@ class Connexion  extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Inscription")),
+      appBar: AppBar(title: const Text("Connexion")),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
