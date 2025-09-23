@@ -2,20 +2,6 @@ import 'package:flutter/material.dart';
 import 'Accueil.dart';
 import 'Connexion.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Connexion(),
-    );
-  }
-}
 
 class Inscription extends StatelessWidget {
   const Inscription({super.key});

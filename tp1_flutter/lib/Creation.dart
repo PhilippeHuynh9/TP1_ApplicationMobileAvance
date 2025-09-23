@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Creation extends StatefulWidget {
-  const Creation({super.key});
+  final Function(String, DateTime?) onAdd;
+  const Creation({super.key, required this.onAdd});
 
   @override
   State<Creation> createState() => _CreationState();
@@ -60,7 +61,10 @@ class _CreationState extends State<Creation> {
             const Spacer(),
             ElevatedButton(
               onPressed: () {
-                Navigator.pop(context);
+                if (_nomController.text.isNotEmpty) {
+                  widget.onAdd(_nomController.text, _dateEcheance);
+                  Navigator.pop(context);
+                }
               },
               child: const Text("Ajouter"),
             ),
