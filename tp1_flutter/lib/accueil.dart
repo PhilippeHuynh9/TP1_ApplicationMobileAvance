@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:tp1_flutter/Consultaion.dart';
+import 'package:tp1_flutter/consultaion.dart';
 import 'package:tp1_flutter/singleton.dart';
-import 'Creation.dart';
+import 'creation.dart';
 import 'connexion.dart';
+import 'task.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -12,9 +13,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final List<String> tasks = [];
+  final List<Task> tasks = [];
 
-  void addTask(String task, DateTime? date) {
+  void addTask(Task task) {
     setState(() {
       tasks.add(task);
     });
@@ -38,7 +39,6 @@ class _HomeScreenState extends State<HomeScreen> {
               title: const Text('Accueil'),
               onTap: () {
                 Navigator.pop(context);
-
               },
             ),
             ListTile(
@@ -68,20 +68,42 @@ class _HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
-      body: ListView.builder(
-        itemCount: tasks.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(tasks[index]),
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const Consultaion()),
-              );
-            },
-          );
-        },
-      ),
+      body: tasks.isEmpty
+          ? const Center(child: Text('Aucune tâche.'))
+          : ListView.builder(
+              itemCount: tasks.length,
+              itemBuilder: (context, index) {
+                final t = tasks[index];
+                final dueText = t.dueDate != null
+                    ? '${t.dueDate!.day}/${t.dueDate!.month}/${t.dueDate!.year}'
+                    : '—';
+                return Card(
+                  margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  child: ListTile(
+                    contentPadding: const EdgeInsets.all(12),
+                    title: Text(t.title, style: const TextStyle(fontWeight: FontWeight.bold)),
+                    subtitle: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(height: 8),
+                        LinearProgressIndicator(value: t.progressPercent / 100.0),
+                        const SizedBox(height: 8),
+                        Text('Avancement: ${t.progressPercent}%   •   Temps écoulé: ${t.percentTimeElapsed()}%'),
+                      ],
+                    ),
+                    trailing: Text(dueText),
+                    onTap: () async {
+                      await Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Consultaion(task: t)),
+                      );
+                      // Rafraîchir la liste après retour (au cas où la tâche a été modifiée)
+                      setState(() {});
+                    },
+                  ),
+                );
+              },
+            ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
@@ -91,8 +113,8 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           );
         },
-        child: const Icon(Icons.add),
         tooltip: "Créer une tâche",
+        child: const Icon(Icons.add),
       ),
     );
   }

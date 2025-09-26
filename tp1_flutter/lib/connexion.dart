@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tp1_flutter/Inscription.dart';
+import 'package:tp1_flutter/inscription.dart';
 
 import 'accueil.dart';
 
@@ -18,15 +18,21 @@ class Connexion  extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             TextField(
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 labelText: "Nom d'utilisateur",
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                ),
               ),
             ),
             const SizedBox(height: 50),
             TextField(
               obscureText: true,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 labelText: "Mot de passe",
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(12.0)),
+                ),
               ),
             ),
 
