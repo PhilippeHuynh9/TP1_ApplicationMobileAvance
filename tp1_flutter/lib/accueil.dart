@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tp1_flutter/Consultaion.dart';
 import 'package:tp1_flutter/singleton.dart';
 import 'Creation.dart';
-import 'Connexion.dart';
+import 'connexion.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

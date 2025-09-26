@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'Accueil.dart';
-import 'Connexion.dart';
+import 'accueil.dart';
+import 'connexion.dart';
 
 
 class Inscription extends StatelessWidget {

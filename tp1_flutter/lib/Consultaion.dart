@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tp1_flutter/singleton.dart';
-import 'Accueil.dart';
-import 'Connexion.dart';
+import 'accueil.dart';
+import 'connexion.dart';
 import 'Creation.dart';
 
 class Consultaion extends StatelessWidget {
