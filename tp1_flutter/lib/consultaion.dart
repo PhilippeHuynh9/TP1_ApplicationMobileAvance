@@ -34,8 +34,17 @@ class _ConsultaionState extends State<Consultaion> {
     final dueText = widget.task.dueDate != null
         ? '${widget.task.dueDate!.day}/${widget.task.dueDate!.month}/${widget.task.dueDate!.year}'
         : 'Aucune';
+
     return Scaffold(
-      appBar: AppBar(title: const Text("Consultation")),
+      appBar: AppBar(
+        title: const Text("Consultation"),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context); // Revenir à la page précédente
+          },
+        ),
+      ),
       drawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -61,7 +70,6 @@ class _ConsultaionState extends State<Consultaion> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    // onAdd: placeholder qui ne fait rien ici
                     builder: (context) => Creation(onAdd: (Task t) {}),
                   ),
                 );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tp1_flutter/transfert.dart';
 import 'accueil.dart';
 import 'singleton.dart';
 
@@ -23,15 +24,30 @@ class _InscriptionState extends State<Inscription> {
     super.dispose();
   }
 
-  void _submit() {
+  void _submit() async {
     if (_formKey.currentState?.validate() ?? false) {
-      // Enregistrer la session utilisateur
-      UserSession().username = _usernameController.text.trim();
-      // Naviguer vers l'accueil
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const HomeScreen()),
+      final req = RequeteInscription(
+        username: _usernameController.text.trim(),
+        password: _passwordController.text,
       );
+
+      try {
+        final rep = await inscriptionAPI(req);
+        print("Réponse serveur : ${rep.message}");
+
+        // Stocke le nom d'utilisateur en session
+        UserSession().username = rep.username ?? req.username;
+
+        // Navigation
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const HomeScreen()),
+        );
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Erreur lors de l’inscription')),
+        );
+      }
     }
   }
 

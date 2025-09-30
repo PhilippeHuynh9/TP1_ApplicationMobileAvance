@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tp1_flutter/consultaion.dart';
 import 'package:tp1_flutter/singleton.dart';
+import 'package:tp1_flutter/transfert.dart';
 import 'creation.dart';
 import 'connexion.dart';
 import 'task.dart';
@@ -57,14 +58,16 @@ class _HomeScreenState extends State<HomeScreen> {
             ListTile(
               leading: const Icon(Icons.logout),
               title: const Text('Déconnexion'),
-              onTap: () {
-                Navigator.pop(context);
+              onTap: () async {
+                Navigator.pop(context); // ferme le drawer
+                await deconnexionAPI(); // appelle l'API pour déconnexion
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => Connexion()),
+                  MaterialPageRoute(builder: (context) => const Connexion()),
                 );
               },
             ),
+
           ],
         ),
       ),
