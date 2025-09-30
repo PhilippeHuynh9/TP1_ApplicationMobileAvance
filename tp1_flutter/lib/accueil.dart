@@ -100,7 +100,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         context,
                         MaterialPageRoute(builder: (context) => Consultaion(task: t)),
                       );
-                      // Rafraîchir la liste après retour (au cas où la tâche a été modifiée)
+                      //
                       setState(() {});
                     },
                   ),

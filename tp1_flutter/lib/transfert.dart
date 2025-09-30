@@ -1,5 +1,5 @@
 import 'package:tp1_flutter/singleton_dio.dart';
-import 'package:dio/dio.dart';  // <-- important pour Options et DioError
+import 'package:dio/dio.dart';
 
 class RequeteInscription {
   final String username;
