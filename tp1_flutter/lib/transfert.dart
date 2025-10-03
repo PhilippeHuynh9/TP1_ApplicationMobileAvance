@@ -1,32 +1,40 @@
+import 'package:json_annotation/json_annotation.dart';
 import 'package:tp1_flutter/singleton_dio.dart';
 import 'package:dio/dio.dart';
 
+part 'transfert.g.dart';
+
+@JsonSerializable()
 class RequeteInscription {
-  final String username;
-  final String password;
+  String nom= "";
+  String motDePasse = "";
+  String confirmationMotDePasse = "";
 
-  RequeteInscription({required this.username, required this.password});
 
-  Map<String, dynamic> toJson() => {
-    'username': username,
-    'password': password,
-  };
+  RequeteInscription();
+
+  factory RequeteInscription.fromJson(Map<String, dynamic> json) =>
+      _$RequeteInscriptionFromJson(json);
+
+  Map<String, dynamic> toJson() => _$RequeteInscriptionToJson(this);
 }
+@JsonSerializable()
 class RequeteConnexion {
-  final String username;
-  final String password;
+  String nom= "";
+  String motDePasse = "";
 
-  RequeteConnexion({required this.username, required this.password});
+  RequeteConnexion();
 
-  Map<String, dynamic> toJson() => {
-    'username': username,
-    'password': password,
-  };
+  factory RequeteConnexion.fromJson(Map<String, dynamic> json) =>
+      _$RequeteConnexionFromJson(json);
+
+  Map<String, dynamic> toJson() => _$RequeteConnexionToJson(this);
 }
 
 class ReponseConnexion {
   final String message;
   final String? username;
+  String nomUtilisateur = "string";
 
   ReponseConnexion({required this.message, this.username});
 
@@ -51,7 +59,7 @@ class ReponseConnexion {
 Future<ReponseConnexion> inscriptionAPI(RequeteInscription req) async {
   try {
     final response = await SingletonDio.getDio().post(
-      'http://10.0.2.2:8080/api/id/signup',
+      'http://10.0.2.2:8080/id/inscription',
       data: req.toJson(),
       options: Options(
         headers: {'Content-Type': 'application/json'},
@@ -75,7 +83,7 @@ Future<ReponseConnexion> inscriptionAPI(RequeteInscription req) async {
 Future<ReponseConnexion> connexionAPI(RequeteConnexion req) async {
   try {
     final response = await SingletonDio.getDio().post(
-      'http://10.0.2.2:8080/api/id/signin',
+      'http://10.0.2.2:8080/id/connexion',
       data: req.toJson(),
       options: Options(
         headers: {'Content-Type': 'application/json'},
@@ -99,7 +107,7 @@ Future<ReponseConnexion> connexionAPI(RequeteConnexion req) async {
 Future<void> deconnexionAPI() async {
   try {
     final response = await SingletonDio.getDio().post(
-      'http://10.0.2.2:8080/api/id/signout',
+      'http://10.0.2.2:8080/id/deconnexion',
       options: Options(
         headers: {'Content-Type': 'application/json'},
       ),
@@ -109,3 +117,4 @@ Future<void> deconnexionAPI() async {
     print("Erreur lors de la déconnexion : $e");
   }
 }
+

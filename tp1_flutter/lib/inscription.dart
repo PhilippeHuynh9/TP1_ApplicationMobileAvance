@@ -26,17 +26,18 @@ class _InscriptionState extends State<Inscription> {
 
   void _submit() async {
     if (_formKey.currentState?.validate() ?? false) {
-      final req = RequeteInscription(
-        username: _usernameController.text.trim(),
-        password: _passwordController.text,
+      RequeteInscription req = RequeteInscription(
       );
 
+      req.nom = _usernameController.text.trim();
+      req.motDePasse = _passwordController.text;
+      req.confirmationMotDePasse = _confirmController.text;
       try {
         final rep = await inscriptionAPI(req);
         print("Réponse serveur : ${rep.message}");
 
         // Stocke le nom d'utilisateur en session
-        UserSession().username = rep.username ?? req.username;
+        UserSession().username = rep.username ?? req.nom;
 
         // Navigation
         Navigator.pushReplacement(

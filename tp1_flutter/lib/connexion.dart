@@ -24,16 +24,17 @@ class _ConnexionState extends State<Connexion> {
 
   void _submitConnexion() async {
     final req = RequeteConnexion(
-      username: _usernameController.text.trim(),
-      password: _passwordController.text,
     );
+
+    req.nom = _usernameController.text.trim();
+    req.motDePasse = _passwordController.text;
 
     try {
       final rep = await connexionAPI(req);
       print("Réponse serveur : ${rep.message}");
 
-      if (rep.message.toLowerCase().contains('success') || rep.username != null) {
-        UserSession().username = rep.username ?? req.username;
+      if (rep != null) {
+        UserSession().username = rep.username ?? req.nom;
 
         Navigator.pushReplacement(
           context,
